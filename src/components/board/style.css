@@ -1,0 +1,12 @@
+.board-table {
+  height: 80vh;
+  width: 80vh;
+}
+
+.board-table td {
+  border: 1px solid black;
+}
+
+.board-table td:hover {
+  cursor: pointer;
+}
