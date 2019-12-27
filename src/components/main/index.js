@@ -3,6 +3,7 @@ import axios from 'axios'
 import Thumbnail from '../thumbnail'
 import config from '../../config'
 import { Link } from 'react-router-dom'
+// import { Button } from 'antd'
 
 class Main extends Component {
   state = {
@@ -14,7 +15,6 @@ class Main extends Component {
     axios.get(config.BACKEND_URL+'/api/boards')
       .then( (res) => {
         this.setState({tileData: res.data.map( (obj) => [obj.id, obj.name] )})
-        console.log(this.state.tileData)
       })
       .catch( (e) => {
         console.log(e)

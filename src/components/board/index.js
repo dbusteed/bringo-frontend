@@ -19,7 +19,7 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    axios.get(config.BACKEND_URL+`/api/boards?id=${this.props.match.params.id}`)
+    axios.get(config.BACKEND_URL+`/api/boards?id=${this.props.match.params.id}  `)
     .then( (res) => {
       this.setState({
         name: res.data[0].name,
