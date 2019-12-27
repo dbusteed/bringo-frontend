@@ -5,6 +5,7 @@ import NavBar from './components/navbar'
 import Login from './components/login'
 import Main from './components/main'
 import SignUp from './components/signup'
+import CreateBoard from './components/createBoard'
 import { 
   BrowserRouter as Router,
   Route
@@ -15,18 +16,19 @@ import * as actions from './store/actions/auth'
 class App extends Component {
 
   componentDidMount() {
-    this.props.onTryAutoSignup()
+    this.props.onTryAutoSignup(this.props.user.email)
   }
 
   render() {
     return (
       <Router>
-        <NavBar {...this.props}/>
+        <NavBar />
         <div className="main-container">
           <Route exact path="/" component={Main} />
           <Route path="/board/:id" component={Board} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
+          <Route path="/create" component={CreateBoard} />
         </div>
       </Router>
     )
@@ -35,13 +37,13 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.token !== null
+    user: state.user
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onTryAutoSignup: () => dispatch(actions.authCheckState())
+    onTryAutoSignup: (email) => dispatch(actions.authCheckState(email))
   }
 }
 

@@ -17,8 +17,13 @@ class NavBar extends Component {
           }}
           title="bringo"
           extra={[
-            <Link key="1" to="/"><Button>view all boards</Button></Link>,
-            <Link key="2" to="/"><Button>create a new board</Button></Link>,
+            <Link key="1" to="/"><Button>find a board</Button></Link>,
+
+            this.props.user.token !== null
+            ? <Link key="4" to="/"><Button>manage my boards</Button></Link> : "",
+            
+            <Link key="2" to="/create"><Button>create a new board</Button></Link>,
+            
             this.props.user.token !== null 
             ? <Button key="3" onClick={this.props.logout}>logout</Button>
             : <Link key="3" to="/login"><Button>login</Button></Link>

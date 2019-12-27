@@ -84,7 +84,7 @@ class SignUp extends Component {
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
         <h1>sign up</h1>
         {errorMessage}
-        <Form.Item label="E-mail">
+        <Form.Item label="email">
           {getFieldDecorator('email', {
             rules: [
               {
@@ -98,7 +98,7 @@ class SignUp extends Component {
             ],
           })(<Input />)}
         </Form.Item>
-        <Form.Item label="Password" hasFeedback>
+        <Form.Item label="password" hasFeedback>
           {getFieldDecorator('password', {
             rules: [
               {
@@ -111,7 +111,7 @@ class SignUp extends Component {
             ],
           })(<Input.Password />)}
         </Form.Item>
-        <Form.Item label="Confirm Password" hasFeedback>
+        <Form.Item label="confirm password" hasFeedback>
           {getFieldDecorator('confirm', {
             rules: [
               {

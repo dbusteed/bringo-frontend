@@ -14,9 +14,11 @@ class Login extends Component {
         this.props.onAuth(values.username, values.password)
       }
     })
-    // if (localStorage.getItem('token') !== null) {
-    //   this.props.history.push("/")
-    // }
+    setTimeout(() => {
+      if (this.props.user.token !== null) {
+        this.props.history.push("/")
+      }
+    }, 1000)
   }
 
   render() {  
@@ -50,7 +52,7 @@ class Login extends Component {
               })(
                 <Input
                 prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                placeholder="Username"
+                placeholder="Email"
                 />,
                 )}
             </Form.Item>
@@ -86,12 +88,10 @@ class Login extends Component {
 const WrappedLogin = Form.create({ name: 'login' })(Login);
 
 const mapStateToProps = (state) => {
-  
-  console.log(state)
-  
   return {
     loading: state.loading,
-    error: state.error
+    error: state.error,
+    user: state.user
   }
 }
 
