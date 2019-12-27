@@ -8,9 +8,10 @@ export const authStart = () => {
   }
 }
 
-export const authSuccess = (token) => {
+export const authSuccess = (email, token) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
+    email: email,
     token: token
   }
 }
@@ -35,7 +36,7 @@ export const authLogin = (username, password) => {
       const expirationDate = new Date(new Date().getTime() + 3600 * 1000) // one hour
       localStorage.setItem('token', token)
       localStorage.setItem('expirationDate', expirationDate)
-      dispatch(authSuccess(token))
+      dispatch(authSuccess(username, token))
       dispatch(checkAuthTimeout(3600))
     })
     .catch((err) => {
@@ -95,7 +96,7 @@ export const authCheckState = () => {
       if (expirationDate <= new Date()) {
         dispatch(authLogout())
       } else {
-        dispatch(authSuccess(token))
+        dispatch(authSuccess(token)) // need to fix this probably
         dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000))
       }
     }

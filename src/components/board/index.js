@@ -37,7 +37,7 @@ class Board extends Component {
     return (
       <div className="board-container">
         <div className="board-title-container">
-          <p>{this.state.name}</p>
+          <h1>{this.state.name}</h1>
         </div>
         <table className="board-table">
           <tbody>

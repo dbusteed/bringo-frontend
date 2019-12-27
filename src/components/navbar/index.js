@@ -19,7 +19,7 @@ class NavBar extends Component {
           extra={[
             <Link key="1" to="/"><Button>view all boards</Button></Link>,
             <Link key="2" to="/"><Button>create a new board</Button></Link>,
-            this.props.isAuthenticated 
+            this.props.user.token !== null 
             ? <Button key="3" onClick={this.props.logout}>logout</Button>
             : <Link key="3" to="/login"><Button>login</Button></Link>
           ]}
@@ -28,6 +28,12 @@ class NavBar extends Component {
     )
   } 
 }
+
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
   
 const mapDispatchToProps = dispatch => {
   return {
@@ -35,4 +41,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(NavBar)
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar)

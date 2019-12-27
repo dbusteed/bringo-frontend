@@ -86,6 +86,9 @@ class Login extends Component {
 const WrappedLogin = Form.create({ name: 'login' })(Login);
 
 const mapStateToProps = (state) => {
+  
+  console.log(state)
+  
   return {
     loading: state.loading,
     error: state.error
