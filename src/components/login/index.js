@@ -14,19 +14,18 @@ class Login extends Component {
         this.props.onAuth(values.username, values.password)
       }
     })
-    // this.props.history.push('/')
-  }
-
-  componentDidMount() {
-    // console.log(this.props.history)
+    // if (localStorage.getItem('token') !== null) {
+    //   this.props.history.push("/")
+    // }
   }
 
   render() {  
 
     let errorMessage = null;
     if (this.props.error) {
+      console.log( this.props.error.response.data['non_field_errors'].map(x => `<p>${x}</p>`) )
       errorMessage = (
-        <p>{this.props.error.message}</p>
+        <p>{this.props.error.response.data['non_field_errors'][0]}</p>
       )
     }
 
@@ -35,8 +34,6 @@ class Login extends Component {
     return (
 
       <div>
-        {errorMessage}
-
         {
           this.props.loading ?
 
@@ -45,6 +42,8 @@ class Login extends Component {
           :
 
           <Form onSubmit={this.handleSubmit} className="login-form">
+            <h1>login</h1>
+            {errorMessage}
             <Form.Item>
               {getFieldDecorator('username', {
                 rules: [{ required: true, message: 'Please input your username!' }],

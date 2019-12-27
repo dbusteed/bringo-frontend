@@ -6,7 +6,7 @@ import * as actions from '../../store/actions/auth'
 class SignUp extends Component {
   state = {
     confirmDirty: false,
-    autoCompleteResult: [],
+    autoCompleteResult: []
   };
 
   handleSubmit = e => {
@@ -16,6 +16,9 @@ class SignUp extends Component {
         this.props.onSignUp(values.email, values.password, values.confirm)
       }
     });
+    // if (localStorage.getItem('token') !== null) {
+    //   this.props.history.push("/")
+    // }
   };
 
   handleConfirmBlur = e => {
@@ -66,8 +69,21 @@ class SignUp extends Component {
       },
     };
 
+    let errorMessage = null;
+    if (this.props.error) {
+      // console.log( this.props.error.response.data['non_field_errors'].map(x => `<p>${x}</p>`) )
+      errorMessage = (
+        <div>
+          <p>{this.props.error.response.data['email']}</p>
+          <p>{this.props.error.response.data['password1']}</p>
+        </div>
+      )
+    }
+
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+        <h1>sign up</h1>
+        {errorMessage}
         <Form.Item label="E-mail">
           {getFieldDecorator('email', {
             rules: [
@@ -110,7 +126,7 @@ class SignUp extends Component {
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
-            register
+            sign up
           </Button>
         </Form.Item>
       </Form>
