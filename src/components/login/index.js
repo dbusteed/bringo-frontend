@@ -15,7 +15,7 @@ class Login extends Component {
       }
     })
     setTimeout(() => {
-      if (this.props.user.token !== null) {
+      if (this.props.token !== null) {
         this.props.history.push("/")
       }
     }, 1000)
@@ -91,7 +91,7 @@ const mapStateToProps = (state) => {
   return {
     loading: state.loading,
     error: state.error,
-    user: state.user
+    token: state.token
   }
 }
 

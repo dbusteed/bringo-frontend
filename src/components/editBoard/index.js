@@ -35,7 +35,7 @@ class EditBoard extends Component {
         axios.put(config.BACKEND_URL+`/api/boards/${this.props.match.params.id}/`, {
           name: values.name,
           tiles: [...new Set(values.tiles.replace('|', '/').split('\n'))].join('|'),
-          owner: this.props.user.email
+          owner: this.props.token
         })
         .then(res => {
           this.setState({message: "board successfully updated!"})
@@ -52,7 +52,7 @@ class EditBoard extends Component {
     const { getFieldDecorator } = this.props.form;
     let content;
     
-    if (this.props.user.token == null) {
+    if (this.props.token == null) {
       
       // same as checking if it is the correct user?
 
@@ -109,10 +109,8 @@ const WrappedEditBoard = Form.create({ name: 'edit_board' })(EditBoard);
 
 const mapStateToProps = state => {
 
-  console.log(state)
-
   return {
-    user: state.user
+    token: state.token
   } 
 }
 

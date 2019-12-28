@@ -20,7 +20,7 @@ class CreateBoard extends Component {
         axios.post(config.BACKEND_URL+'/api/boards/new', {
           name: values.name,
           tiles: [...new Set(values.tiles.replace('|', '/').split('\n'))].join('|'),
-          owner: this.props.user.email
+          owner: this.props.token
         })
         .then(res => {
           this.setState({message: "board successfully created!"})
@@ -37,7 +37,7 @@ class CreateBoard extends Component {
     const { getFieldDecorator } = this.props.form;
     let content;
     
-    if (this.props.user.token == null) {
+    if (this.props.token == null) {
       
       content = (
         <p>
@@ -81,7 +81,7 @@ class CreateBoard extends Component {
             {getFieldDecorator('tiles', {
               rules: [{ required: true, message: 'please give you board some tiles!' }],
             })(
-              <TextArea rows={15}
+              <TextArea rows={10}
                 placeholder={"tile one text\ntile two text\nthe last tile!"}
               />,
             )}
@@ -107,10 +107,8 @@ const WrappedCreateBoard = Form.create({ name: 'create_board' })(CreateBoard);
 
 const mapStateToProps = state => {
 
-  console.log(state)
-
   return {
-    user: state.user
+    token: state.token
   } 
 }
 

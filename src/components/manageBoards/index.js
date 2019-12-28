@@ -15,7 +15,7 @@ class ManageBoards extends Component {
   }
 
   fetchBoards() {
-    axios.get(config.BACKEND_URL+`/api/boards?owner=${this.props.user.email}`)
+    axios.get(config.BACKEND_URL+`/api/boards?owner=${this.props.token}`)
       .then(res =>{
         this.setState({
           boards: res.data
@@ -83,7 +83,7 @@ class ManageBoards extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    token: state.token
   }
 }
 

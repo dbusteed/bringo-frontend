@@ -19,12 +19,12 @@ class NavBar extends Component {
           extra={[
             <Link key="1" to="/"><Button>find a board</Button></Link>,
 
-            this.props.user.token !== null
+            this.props.token !== null
             ? <Link key="4" to="/manage"><Button>manage my boards</Button></Link> : "",
             
             <Link key="2" to="/create"><Button>create a new board</Button></Link>,
             
-            this.props.user.token !== null 
+            this.props.token !== null 
             ? <Button key="3" onClick={this.props.logout}>logout</Button>
             : <Link key="3" to="/login"><Button>login</Button></Link>
           ]}
@@ -36,7 +36,7 @@ class NavBar extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    token: state.token
   }
 }
   

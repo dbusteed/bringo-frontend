@@ -18,7 +18,7 @@ import * as actions from './store/actions/auth'
 class App extends Component {
 
   componentDidMount() {
-    this.props.onTryAutoSignup(this.props.user.email)
+    this.props.onTryAutoSignup()
   }
 
   render() {
@@ -39,16 +39,10 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user
-  }
-}
-
 const mapDispatchToProps = (dispatch) => {
   return {
-    onTryAutoSignup: (email) => dispatch(actions.authCheckState(email))
+    onTryAutoSignup: () => dispatch(actions.authCheckState())
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);
