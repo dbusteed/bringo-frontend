@@ -7,23 +7,38 @@ import config from '../../config'
 
 const { TextArea } = Input;
 
-class CreateBoard extends Component {
+class EditBoard extends Component {
   state = {
     message: null,
-    error: false
+    error: false,
+    boardName: null,
+    boardTiles: null
+  }
+
+  componentDidMount() {
+    axios.get(config.BACKEND_URL+`/api/boards/${this.props.match.params.id}/`)
+      .then(res => {
+        this.setState({
+          boardName: res.data['name'],
+          boardTiles: res.data['tiles'].split('|').join('\n')
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        axios.post(config.BACKEND_URL+'/api/boards/new', {
+        axios.put(config.BACKEND_URL+`/api/boards/${this.props.match.params.id}/`, {
           name: values.name,
           tiles: [...new Set(values.tiles.replace('|', '/').split('\n'))].join('|'),
           owner: this.props.user.email
         })
         .then(res => {
-          this.setState({message: "board successfully created!"})
+          this.setState({message: "board successfully updated!"})
         })
         .catch(err => {
           this.setState({message: "something went wrong...please try again later", error: true})
@@ -39,56 +54,43 @@ class CreateBoard extends Component {
     
     if (this.props.user.token == null) {
       
+      // same as checking if it is the correct user?
+
       content = (
         <p>
-          you gotta<Link to="/login"> login </Link>before making a board
+          you gotta<Link to="/login"> login </Link>before editing a board
         </p>  
       )
 
     } else if (this.state.message !== null) {
-      if (this.state.error) {
-        content = (
-          <p>{this.state.message}</p>
-        )
-      } else {
-          content = (
-            <div>
-              <p>{this.state.message}</p>
-              <br />
-              {/* better way to do this? */}
-              <p className="p-link" onClick={() => window.location.reload(false)}>
-                make another board
-              </p>
-            </div>
-          )
-      }
+      content = (
+        <p>{this.state.message}</p>
+      )
+
     } else {
       content = (
         <Form onSubmit={this.handleSubmit} className="login-form">
-          <h1>create a new board</h1>
-          <p><span style={{fontWeight: "bold"}}>tips:</span> add lots of tiles to make the board interesting!</p>
+          <h1 onClick={() => console.log(this.state) }>edit board</h1>
           <br />
           <Form.Item label="board name">
             {getFieldDecorator('name', {
               rules: [{ required: true, message: 'please give your board a name!' }],
+              initialValue: this.state.boardName
             })(
-              <Input
-                placeholder="cool board name"
-              />,
+              <Input />,
             )}
           </Form.Item>
           <Form.Item label="board tiles (seperate with a new line)">
             {getFieldDecorator('tiles', {
               rules: [{ required: true, message: 'please give you board some tiles!' }],
+              initialValue: this.state.boardTiles            
             })(
-              <TextArea rows={15}
-                placeholder={"tile one text\ntile two text\nthe last tile!"}
-              />,
+              <TextArea rows={10} />,
             )}
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit" className="login-form-button">
-              create board
+              update board
             </Button>
           </Form.Item>
         </Form>
@@ -103,7 +105,7 @@ class CreateBoard extends Component {
   }
 }
 
-const WrappedCreateBoard = Form.create({ name: 'create_board' })(CreateBoard);
+const WrappedEditBoard = Form.create({ name: 'edit_board' })(EditBoard);
 
 const mapStateToProps = state => {
 
@@ -114,4 +116,4 @@ const mapStateToProps = state => {
   } 
 }
 
-export default connect(mapStateToProps, null)(WrappedCreateBoard)
+export default connect(mapStateToProps, null)(WrappedEditBoard)

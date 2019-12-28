@@ -20,7 +20,7 @@ class NavBar extends Component {
             <Link key="1" to="/"><Button>find a board</Button></Link>,
 
             this.props.user.token !== null
-            ? <Link key="4" to="/"><Button>manage my boards</Button></Link> : "",
+            ? <Link key="4" to="/manage"><Button>manage my boards</Button></Link> : "",
             
             <Link key="2" to="/create"><Button>create a new board</Button></Link>,
             

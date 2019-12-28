@@ -5,13 +5,6 @@ import axios from 'axios'
 import config from '../../config'
 
 class Board extends Component {
-  
-  // get from the backend somehow
-  tiles = [
-    "test one",
-    'test two',
-    "test three"
-  ]
 
   state = {
     name: '',

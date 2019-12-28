@@ -35,6 +35,7 @@ export const authLogin = (username, password) => {
       const token = res.data.key
       const expirationDate = new Date(new Date().getTime() + 3600 * 1000) // one hour
       localStorage.setItem('token', token)
+      localStorage.setItem('email', username)
       localStorage.setItem('expirationDate', expirationDate)
       dispatch(authSuccess(username, token))
       dispatch(checkAuthTimeout(3600))
@@ -47,6 +48,7 @@ export const authLogin = (username, password) => {
 
 export const authLogout = () => {
   localStorage.removeItem('token')
+  localStorage.removeItem('email')
   localStorage.removeItem('expirationDate')
   return {
     type: actionTypes.AUTH_LOGOUT
@@ -74,6 +76,7 @@ export const authSignup = (username, email, password1, password2) => {
       const token = res.data.key
       const expirationDate = new Date(new Date().getTime() + 3600 * 1000) // one hour
       localStorage.setItem('token', token)
+      localStorage.setItem('email', email)
       localStorage.setItem('expirationDate', expirationDate)
       dispatch(authSuccess(token))
       dispatch(checkAuthTimeout(3600))
@@ -89,6 +92,7 @@ export const authSignup = (username, email, password1, password2) => {
 export const authCheckState = (email) => {
   return dispatch => {
     const token = localStorage.getItem('token')
+    const email2 = localStorage.getItem('email')
     if (token === undefined) {
       dispatch(authLogout())
     } else {
@@ -96,7 +100,7 @@ export const authCheckState = (email) => {
       if (expirationDate <= new Date()) {
         dispatch(authLogout())
       } else {
-        dispatch(authSuccess(email, token)) // need to fix this probably
+        dispatch(authSuccess(email2, token)) // need to fix this probably
         dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000))
       }
     }

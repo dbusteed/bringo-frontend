@@ -6,6 +6,8 @@ import Login from './components/login'
 import Main from './components/main'
 import SignUp from './components/signup'
 import CreateBoard from './components/createBoard'
+import ManageBoards from './components/manageBoards'
+import EditBoard from './components/editBoard'
 import { 
   BrowserRouter as Router,
   Route
@@ -29,6 +31,8 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
           <Route path="/create" component={CreateBoard} />
+          <Route path="/manage" component={ManageBoards} />
+          <Route path="/edit/:id" component={EditBoard} />
         </div>
       </Router>
     )
