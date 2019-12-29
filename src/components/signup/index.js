@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button } from 'antd'
 import { connect } from 'react-redux'
 import * as actions from '../../store/actions/auth'
 
@@ -15,10 +15,12 @@ class SignUp extends Component {
       if (!err) {
         this.props.onSignUp(values.email, values.password, values.confirm)
       }
-    });
-    // if (localStorage.getItem('token') !== null) {
-    //   this.props.history.push("/")
-    // }
+    })
+    setTimeout(() => {
+      if (this.props.token !== null) {
+        this.props.history.push("/")
+      }
+    }, 1000)
   };
 
   handleConfirmBlur = e => {

@@ -1,7 +1,10 @@
 body {
   display: flex;
-  /* justify-content: center; */
   flex-direction: column;
+}
+
+.main {
+  display: flex;
 }
 
 .main-container {
@@ -9,4 +12,9 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex: 5 0 0;
+}
+
+.main-gutter {
+  flex: 1 0 0;
 }

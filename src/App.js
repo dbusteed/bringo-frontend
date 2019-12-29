@@ -25,14 +25,18 @@ class App extends Component {
     return (
       <Router>
         <NavBar />
-        <div className="main-container">
-          <Route exact path="/" component={Main} />
-          <Route path="/board/:id" component={Board} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/create" component={CreateBoard} />
-          <Route path="/manage" component={ManageBoards} />
-          <Route path="/edit/:id" component={EditBoard} />
+        <div className="main">
+          <div className="main-gutter"></div>
+          <div className="main-container">
+            <Route exact path="/" component={Main} />
+            <Route path="/board/:id" component={Board} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/create" component={CreateBoard} />
+            <Route path="/manage" component={ManageBoards} />
+            <Route path="/edit/:id" component={EditBoard} />
+          </div>
+          <div className="main-gutter"></div>
         </div>
       </Router>
     )

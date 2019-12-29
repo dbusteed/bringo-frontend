@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Form, Icon, Input, Button, Spin } from 'antd';
+import { Form, Icon, Input, Button, Spin } from 'antd'
 import { connect } from 'react-redux'
 import * as actions from '../../store/actions/auth'
 import { Link } from 'react-router-dom'
 
-const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
+const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />
 
 class Login extends Component {
   handleSubmit = e => {
