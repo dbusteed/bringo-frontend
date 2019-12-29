@@ -33,12 +33,17 @@ class EditBoard extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         axios.put(config.BACKEND_URL+`/api/boards/${this.props.match.params.id}/`, {
+          board_id: this.props.match.params.id,
           name: values.name,
           tiles: [...new Set(values.tiles.replace('|', '/').split('\n'))].join('|'),
           owner: this.props.token
         })
         .then(res => {
-          this.setState({message: "board successfully updated!"})
+          if (res.data.error !== undefined) {
+            this.setState({message: "incorrect user, this isn't your board!"})
+          } else {
+            this.setState({message: "board successfully updated!"})
+          }
         })
         .catch(err => {
           this.setState({message: "something went wrong...please try again later", error: true})

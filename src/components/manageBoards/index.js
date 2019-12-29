@@ -28,7 +28,10 @@ class ManageBoards extends Component {
   }
 
   deleteBoard(id) {
-    axios.delete(config.BACKEND_URL+`/api/boards/${id}/`)
+    axios.delete(config.BACKEND_URL+`/api/boards/${id}/`, {data: {
+      board_id: id,
+      token: this.props.token
+    }})
       .then(res => {
         console.log('yup')
         this.fetchBoards()

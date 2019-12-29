@@ -17,6 +17,12 @@ class CreateBoard extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
+
+        axios.defaults.headers = {
+          "Content-Type": "application/json",
+          Authorization: `Token ${this.props.token}`,
+        }
+
         axios.post(config.BACKEND_URL+'/api/boards/new', {
           name: values.name,
           tiles: [...new Set(values.tiles.replace('|', '/').split('\n'))].join('|'),
